@@ -29,7 +29,7 @@ RUN cd /tcmu-runner \
 && ./make_runnerrpms.sh
 
 RUN mkdir -p /allrpms \
- && find / -path /proc -prune -o -iname "*.rpm" -exec mv {} /allrpms \; \
+ && find /tcmu-runner /glusterfs -iname "*.rpm" -exec mv {} /allrpms \; \
  && cd /allrpms && createrepo .
 
 RUN echo "[gluster-tmcu]" > /etc/yum.repos.d/gluster-tmcu.repo \
@@ -51,7 +51,7 @@ RUN mv gluster-block gluster-block-0.4  \
 && cp gluster-block-0.4.tar.gz /root/rpmbuild/SOURCES/ \
 && rpmbuild -ba /gluster-block.spec
 
-RUN find / -path /proc -prune -o -iname "*.rpm" -exec mv {} /allrpms \;
+RUN find /root -iname "*.rpm" -exec mv {} /allrpms \;
 
 
 FROM centos:8
