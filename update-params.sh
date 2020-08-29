@@ -66,9 +66,9 @@ fi
 getent passwd heketi > /dev/null
 if [[ $? -eq 0 ]]
 then
- usermod -u 9870 heketi
+ usermod -u 9870 -s /bin/bash heketi
 else
- useradd -g heketi -d /var/lib/heketi -s /sbin/nologin -c "heketi user" -u 9870 heketi
+ useradd -g heketi -d /var/lib/heketi -s /bin/bash -c "heketi user" -u 9870 heketi
 fi
 echo "heketi ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/heketi
 
