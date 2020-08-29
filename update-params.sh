@@ -55,5 +55,22 @@ if [ -c "${HOST_DEV_DIR}/zero" ] && [ -c "${HOST_DEV_DIR}/null" ]; then
     mount --rbind "${HOST_DEV_DIR}" /dev
 fi
 
+getent group heketi > /dev/null
+if [[ $? -eq 0 ]]
+then
+ groupmod -g 9870 heketi
+else
+ groupadd -g 9870 heketi
+fi
+
+getent passwd heketi > /dev/null
+if [[ $? -eq 0 ]]
+then
+ usermod -u 9870 heketi
+else
+ useradd -g heketi -d /var/lib/heketi -s /sbin/nologin -c "heketi user" -u 9870 heketi
+fi
+echo "heketi ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/heketi
+
 # Hand off to CMD
 exec "$@"

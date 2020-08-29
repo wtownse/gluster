@@ -123,6 +123,7 @@ yum --setopt=tsflags=nodocs -y install glusterfs-server  && \
 yum --setopt=tsflags=nodocs -y install glusterfs-rdma  && \
 yum --setopt=tsflags=nodocs -y install gluster-block  && \
 yum --setopt=tsflags=nodocs -y install glusterfs-geo-replication && \
+yum --setopt=tsflags=nodocs -y install sudo && \
 yum clean all
 
 ##RUN cd / \
